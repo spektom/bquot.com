@@ -1,0 +1,83 @@
+<% content_for(:head) do %>
+<%= stylesheet_link_tag "deck.css" %>
+<%= javascript_include_tag "modernizr.custom.js" %>
+<%= javascript_include_tag "deck.min.js" %>
+
+<!-- Initalization script -->
+<script type="text/javascript">
+	bq_jQuery(function() {
+		//bq_jQuery("#bookmarklet").button();
+		
+		if (bq_jQuery.browser.msie || bq_jQuery.browser.opera) {
+			bq_jQuery("#cant-drag").click(function(event) {
+				event.preventDefault();
+				bq_jQuery("#cant-drag-div").toggle();
+				if (bq_jQuery.browser.msie) {
+					bq_jQuery("#cant-drag-ie-div").toggle();
+				}
+				else 
+					if (bq_jQuery.browser.opera) {
+						bq_jQuery("#cant-drag-opera-div").toggle();
+					}
+			});
+		}
+		else {
+			bq_jQuery("#cant-drag").hide();
+		}
+		
+		// Initialize deck:
+		bq_jQuery.deck('.slide');
+	});
+</script>
+<% end %>
+
+<div class="deck-container">
+	<div class="slide" id="page1">
+		<h2>Step #1: Getting Started</h2><br><br><br><br><br>
+		<p style="margin-left:12em;">Drag this button into the Bookmarks Toolbar</p>
+		<div id="bookmarklet-div">
+			<%= link_to "BookmarkQ", bookmarlet_code, :id => "bookmarklet" %>
+			&nbsp;<a href="#" id="cant-drag">can't drag?</a>
+		</div>
+		<div id="cant-drag-div" class="cant-drag-div">
+			If you can't drag this button to Bookmarks Toolbar, try using these steps:
+		</div>
+		<div id="cant-drag-ie-div" class="cant-drag-div">
+			<ol>
+				<li>Right-click on the button</li>
+				<li>Select "Add to Favorites"</li>
+				<li>Click "Yes" on security warning</li>
+				<li>Select "Favorites Bar" from the "create in" dropdown</li>
+				<li>Press "Add"</li>
+			</ol>
+		</div>
+		<div id="cant-drag-opera-div" class="cant-drag-div">
+			<ol>
+				<li>Right-click on the button</li>
+				<li>Select "Bookmark Link"</li>
+				<li>Check "Show on Bookmarks Bar"</li>
+				<li>Press "OK"</li>
+			</ol>
+		</div>
+	</div>
+	<div class="slide" id="page2">
+		<h2>Step #2: Selecting Text</h2><br>
+		<p>Select the needed text, then click on the BookmarkQ button</p>
+		<%= image_tag "usage_01.png", :alt => "Creating short URL to selected text" %>
+	</div>
+	<div class="slide" id="page2">
+		<h2>Step #3: Sharing URL</h2><br>
+		<p>Copy the short URL to the quote or share directly via GMail, Facebook or Twitter</p>
+		<%= image_tag "usage_02.png", :alt => "Sharing short URL for the citation" %>
+		<p>Open this <a href="/vy">example</a>.</p>
+	</div>
+
+	<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+	<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+	<p class="deck-status">
+		<span class="deck-status-current"></span>
+		/
+		<span class="deck-status-total"></span>
+	</p>
+</div>
